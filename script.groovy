@@ -11,7 +11,7 @@ def buildApp() {
 
 def deployApp() {
     echo "Deploy app"
-    sh "deploy about to happen"
+    echo "deploy about to happen"
 }
 
 return this
