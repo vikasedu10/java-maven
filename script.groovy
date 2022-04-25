@@ -13,7 +13,7 @@ def buildApp() {
 def deployApp() {
     echo "Deploying app"
     def dockerCmd = "docker run vikas1412/java-maven:1.0"
-    sshagent(['ssh-keypair']) {
+    sshagent(['ec2-ssh-keypair']) {
         sh "ssh -o StrictHostKeyChecking=no ec2-user@13.235.78.154 ${dockerCmd}"
     }
 }
