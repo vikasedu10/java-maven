@@ -17,6 +17,11 @@ pipeline {
         }
 
         stage("Test") {
+            when {
+                expression {
+                    BRANCH_NAME = 'master'
+                }
+            }
             steps {
                 script {
                     gv.testApp()
@@ -39,5 +44,11 @@ pipeline {
                 }
             }
         }
+    }
+
+    post {
+        always {}
+        success {}
+        failure {}
     }
 }
