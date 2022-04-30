@@ -28,16 +28,11 @@ pipeline {
                         -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit"
                     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
-                    env.IMAGE_NAME = "vikas1412/java-maven:$version-$BUILD_NUMBER"
+                    env.IMAGE_NAME = "vikas1412/java-maven:${version}-${BUILD_NUMBER}"
                 }
             }
         }
         stage("Test") {
-            when {
-                expression {
-                    BRANCH_NAME = 'master'
-                }
-            }
             steps {
                 script {
                     gv.testApp()
@@ -55,6 +50,11 @@ pipeline {
         }
 
         stage("Deploy") {
+            when {
+                expression {
+                    BRANCH_NAME = 'master'
+                }
+            }
             steps {
                 script {
                     gv.deployImage()
