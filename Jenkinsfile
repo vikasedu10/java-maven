@@ -24,8 +24,8 @@ pipeline {
             steps {
                 script {
                     echo "Incrementing the version"
-                    sh "mvn builder-helper:parse-version versions:set \
-                        -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit"
+                    sh "mvn -v"
+                    sh "mvn builder-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit"
                     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
                     env.IMAGE_NAME = "vikas1412/java-maven:${version}-${BUILD_NUMBER}"
